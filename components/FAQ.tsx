@@ -13,43 +13,43 @@ export const FAQ: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 bg-background dark:bg-brand-card/30">
-      <div className="container mx-auto px-6 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-foreground">{content.faq.title}</h2>
+    <section id="faq" className="py-24 relative">
+      <div className="container mx-auto px-6 max-w-3xl">
+        <h2 className="text-4xl font-black text-center mb-12 text-foreground tracking-tight">{content.faq.title}</h2>
 
         <div className="space-y-4">
           {FAQS_CONFIG.map((faq, idx) => {
             const item = content.faq.items[faq.questionKey];
+            const isActive = activeIndex === idx;
             return (
                 <div 
                 key={idx} 
-                className={`border transition-all duration-300 rounded-2xl overflow-hidden ${
-                    activeIndex === idx 
-                    ? 'bg-white dark:bg-brand-card border-brand-accent/50 shadow-lg' 
-                    : 'bg-white/50 dark:bg-white/5 border-border dark:border-white/5 hover:border-brand-muted/30'
-                }`}
+                className={`transition-all duration-300 rounded-2xl overflow-hidden border ${
+                    isActive 
+                    ? 'bg-white/80 dark:bg-white/10 border-brand-accent/30 shadow-lg scale-[1.02]' 
+                    : 'bg-white/40 dark:bg-white/5 border-white/50 dark:border-white/5 hover:bg-white/60'
+                } backdrop-blur-md`}
                 >
                 <button
                     onClick={() => toggleIndex(idx)}
                     className="w-full flex items-center justify-between p-6 text-start focus:outline-none"
                 >
-                    <span className={`font-bold text-lg ${activeIndex === idx ? 'text-brand-accent' : 'text-foreground'}`}>
+                    <span className={`font-bold text-lg ${isActive ? 'text-brand-accent' : 'text-foreground'}`}>
                     {item.q}
                     </span>
-                    <span className={`p-2 rounded-full transition-colors ${activeIndex === idx ? 'bg-brand-accent text-white' : 'bg-brand-muted/10 text-brand-mutedLight'}`}>
-                    {activeIndex === idx ? <Minus size={18} /> : <Plus size={18} />}
+                    <span className={`p-2 rounded-full transition-colors ${isActive ? 'bg-brand-accent text-white' : 'text-brand-mutedLight'}`}>
+                    {isActive ? <Minus size={16} /> : <Plus size={16} />}
                     </span>
                 </button>
                 
                 <AnimatePresence>
-                    {activeIndex === idx && (
+                    {isActive && (
                     <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
                     >
-                        <div className="px-6 pb-6 pt-0 text-brand-mutedLight leading-relaxed border-t border-dashed border-border dark:border-white/10 mt-2 pt-4">
+                        <div className="px-6 pb-6 pt-0 text-brand-mutedLight leading-relaxed text-start">
                         {item.a}
                         </div>
                     </motion.div>

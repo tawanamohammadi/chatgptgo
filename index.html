@@ -14,7 +14,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class', // Enable class-based dark mode
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -23,27 +23,24 @@
             },
             colors: {
               border: "hsl(var(--border))",
-              input: "hsl(var(--input))",
-              ring: "hsl(var(--ring))",
               background: "var(--background)",
               foreground: "var(--foreground)",
               brand: {
-                // Architectural Palette
                 dark: '#020617', // Slate 950
-                card: '#0f172a', // Slate 900
-                light: '#ffffff',
-                accent: '#10b981', // Emerald 500
-                accentHover: '#059669', // Emerald 600
-                muted: '#94a3b8', // Slate 400
-                mutedLight: '#64748b', // Slate 500
+                accent: '#6366f1', // Indigo 500
+                secondary: '#8b5cf6', // Violet 500
+                tertiary: '#3b82f6', // Blue 500
+                accentHover: '#4f46e5', // Indigo 600
+                muted: '#94a3b8',
+                mutedLight: '#64748b',
+                card: '#0f172a',
               }
-            },
-            backgroundImage: {
-              'grid-pattern': "linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px)",
             },
             animation: {
               'blob': 'blob 7s infinite',
               'float': 'float 6s ease-in-out infinite',
+              'mesh': 'mesh 20s infinite ease-in-out',
+              'shimmer': 'shimmer 2s infinite',
             },
             keyframes: {
               blob: {
@@ -55,6 +52,13 @@
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-10px)' },
+              },
+              mesh: {
+                '0%, 100%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+              },
+              shimmer: {
+                '100%': { transform: 'translateX(100%)' },
               }
             }
           },
@@ -63,26 +67,50 @@
     </script>
     <style>
       :root {
-        /* Light Theme Default */
-        --background: #f8fafc;
+        --background: #ffffff;
         --foreground: #0f172a;
         --border: #e2e8f0;
       }
       .dark {
-        /* Dark Theme Default */
         --background: #020617;
         --foreground: #f8fafc;
         --border: #1e293b;
       }
       
-      /* Smooth Scrolling & Custom Scrollbar */
       html { scroll-behavior: smooth; }
-      ::-webkit-scrollbar { width: 8px; }
+      
+      /* Luxury Scrollbar */
+      ::-webkit-scrollbar { width: 6px; }
       ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-      .dark ::-webkit-scrollbar-thumb { background: #334155; }
-      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-      .dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+      ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.6); }
+
+      /* Mesh Background - Updated for Indigo/Blue Theme */
+      .mesh-bg {
+        background-color: #020617;
+        background-image: 
+          radial-gradient(at 0% 0%, hsla(250, 40%, 10%, 1) 0, transparent 50%), 
+          radial-gradient(at 50% 0%, hsla(220, 40%, 15%, 1) 0, transparent 50%), 
+          radial-gradient(at 100% 0%, hsla(280, 40%, 15%, 1) 0, transparent 50%);
+        background-size: 150% 150%;
+        animation: mesh 25s ease infinite;
+      }
+      .light-mesh {
+        background-color: #f8fafc;
+        background-image: 
+          radial-gradient(at 40% 20%, hsla(220, 100%, 97%, 1) 0px, transparent 50%),
+          radial-gradient(at 80% 0%, hsla(260, 100%, 98%, 1) 0px, transparent 50%),
+          radial-gradient(at 0% 50%, hsla(200, 100%, 97%, 1) 0px, transparent 50%);
+        background-size: 150% 150%;
+        animation: mesh 15s ease infinite;
+      }
+      .dark .mesh-bg {
+         background-color: #020617;
+         background-image: 
+          radial-gradient(at 0% 0%, hsla(260, 50%, 10%, 0.6) 0px, transparent 60%),
+          radial-gradient(at 90% 10%, hsla(220, 50%, 12%, 0.6) 0px, transparent 60%),
+          radial-gradient(at 50% 60%, hsla(240, 50%, 8%, 0.6) 0px, transparent 60%);
+      }
     </style>
   <script type="importmap">
 {
@@ -96,7 +124,7 @@
 }
 </script>
 </head>
-  <body class="bg-background text-foreground antialiased selection:bg-brand-accent selection:text-white transition-colors duration-300">
+  <body class="bg-background text-foreground antialiased font-sans transition-colors duration-300 overflow-x-hidden">
     <div id="root"></div>
   </body>
 </html>

@@ -11,7 +11,10 @@ import {
   Gift,
   Star,
   ShoppingBag,
-  CheckCircle2
+  CheckCircle2,
+  Cpu,
+  Lock,
+  Smartphone
 } from 'lucide-react';
 import { FeatureItem, NavItem, StepItem, FAQItem, Content } from './types';
 
@@ -19,11 +22,13 @@ export const TELEGRAM_ID = "Rahbarusd";
 export const TELEGRAM_LINK = `https://t.me/${TELEGRAM_ID}`;
 export const CHANNEL_ID = "panbehnet";
 export const CHANNEL_LINK = `https://t.me/${CHANNEL_ID}`;
-export const ABOUT_ME_LINK = "https://about.me/tawanamohammadi";
+export const ABOUT_ME_LINK = "https://tawanamohammadi.bio";
 
-// NOTE: Replace this URL with the DIRECT link to your image (must end in .jpg or .png)
-// Since about.me does not provide a direct image link easily, upload your photo to a host or use a direct link.
-export const PROFILE_IMAGE_URL = "https://ui-avatars.com/api/?name=Tawana+Mohammadi&background=0D8ABC&color=fff&size=256"; 
+// --- PROFILE IMAGE CONFIGURATION ---
+// Using the High-Res image from Gravatar as requested
+export const CUSTOM_PROFILE_IMAGE = "https://2.gravatar.com/userimage/273761299/47f83f0d63887baf0d6a809341cc8c13?size=1024"; 
+
+export const PROFILE_IMAGE_URL = CUSTOM_PROFILE_IMAGE;
 
 export const NAV_LINKS: NavItem[] = [
   { key: 'features', href: '#product' },
@@ -34,8 +39,8 @@ export const NAV_LINKS: NavItem[] = [
 
 export const FEATURES_CONFIG: FeatureItem[] = [
   { icon: ShieldCheck, titleKey: 'moneyBack', descKey: 'moneyBack' },
-  { icon: UserCheck, titleKey: 'warranty', descKey: 'warranty' },
-  { icon: Gift, titleKey: 'vpn', descKey: 'vpn' },
+  { icon: Cpu, titleKey: 'performance', descKey: 'performance' },
+  { icon: Globe, titleKey: 'vpn', descKey: 'vpn' },
   { icon: CreditCard, titleKey: 'payment', descKey: 'payment' },
   { icon: Zap, titleKey: 'fast', descKey: 'fast' },
   { icon: Headset, titleKey: 'support', descKey: 'support' }
@@ -55,196 +60,204 @@ export const FAQS_CONFIG: FAQItem[] = [
   { questionKey: 'q4', answerKey: 'a4' },
 ];
 
+// Payment Methods Configuration
+export const PAYMENT_METHODS = [
+  { name: 'Visa', color: '#1A1F71', label: 'Visa' },
+  { name: 'Mastercard', color: '#EB001B', label: 'Master' },
+  { name: 'PayPal', color: '#003087', label: 'PayPal' },
+  { name: 'Shaparak', color: '#10b981', label: 'شتاب ایران' }, // Local payment network
+];
+
 export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
   fa: {
     nav: {
       features: 'محصول',
       how: 'خرید',
-      seller: 'فروشنده',
+      seller: 'درباره ما',
       faq: 'سوالات',
     },
     hero: {
-      badge: 'موجود در انبار - تحویل فوری',
-      title: <>اشتراک <span className="text-brand-accent">ChatGPT Go</span> اورجینال</>,
-      subtitle: <>لایسنس قانونی ۱۲ ماهه (یک‌ساله) بر روی ایمیل شخصی شما. بدون قطعی، بدون محدودیت تغییر IP، همراه با ضمانت طلایی بازگشت وجه.</>,
-      ctaPrimary: 'افزودن به سبد خرید (تلگرام)',
-      ctaSecondary: 'مشخصات فنی',
+      badge: 'موجودی محدود - تحویل فوری',
+      title: <>اشتراک <span className="text-brand-accent">ChatGPT Go</span> نسخه اورجینال</>,
+      subtitle: <>لایسنس قانونی ۱۲ ماهه بر روی ایمیل شخصی شما. بدون قطعی، بدون نیاز به تغییر IP مداوم. تجربه هوش مصنوعی بدون مرز.</>,
+      ctaPrimary: 'سفارش در تلگرام',
+      ctaSecondary: 'مشاهده ویژگی‌ها',
       trust: ['گارانتی تعویض', 'تضمین اصالت', 'پشتیبانی ۲۴/۷'],
       pricing: {
         title: 'ChatGPT Go - 1 Year',
         period: 'لایسنس قانونی ۱ ساله',
-        special: 'تخفیف ویژه',
+        special: 'پیشنهاد ویژه',
         price: '۲٫۵۰۰٫۰۰۰',
         unit: 'تومان',
         note: 'آخرین بروزرسانی قیمت: همین الان',
         features: [
           "فعال‌سازی روی ایمیل شخصی خریدار",
-          "دسترسی کامل به مدل‌های ۳.۵ و ۴ (محدود)",
+          "دسترسی پایدار به مدل‌های هوش مصنوعی",
           "بدون نیاز به تغییر IP مداوم",
           "هدیه: ۹۰ گیگابایت VPN (ماهیانه)",
-          "گارانتی بازگشت وجه در صورت عدم کارکرد"
+          "گارانتی بازگشت وجه کامل"
         ],
         button: 'خرید و فعال‌سازی فوری'
       }
     },
     seller: {
-      title: 'فروشنده تایید شده',
+      title: 'پروفایل تایید شده',
       name: 'Tawana Mohammadi',
-      role: 'مدیر و موسس PanbeNet',
-      bio: 'تضمین بالاترین کیفیت خدمات در ایران. هویت تایید شده با سال‌ها سابقه درخشان در ارائه سرویس‌های بین‌المللی.',
-      channelTitle: 'کانال رسمی اطلاع‌رسانی',
+      role: 'Web Developer & AI Researcher',
+      bio: 'پژوهشگر مستقل هوش مصنوعی، استراتژیست داده و مدرس با تمرکز بر اخلاق هوش مصنوعی، شفافیت داده و حقوق دیجیتال. موسس شبکه توانا.',
+      channelTitle: 'کانال رسمی',
       channelId: '@panbehnet',
-      cta: 'مشاهده پروفایل کامل'
+      cta: 'مشاهده بیوگرافی کامل'
     },
     features: {
-      title: 'ویژگی‌های محصول',
-      subtitle: 'چرا این اشتراک بهترین انتخاب برای شماست؟',
+      title: 'امکانات بی‌‌نهایت',
+      subtitle: 'طراحی شده برای کسانی که به کیفیت اهمیت می‌دهند.',
       items: {
-        moneyBack: { title: 'ضمانت بازگشت وجه', desc: 'در صورت عدم فعال‌سازی، ۱۰۰٪ مبلغ عودت داده می‌شود.' },
-        warranty: { title: 'گارانتی ۱ ماهه اکانت', desc: 'تضمین پایداری و سلامت اکانت تا ۳۰ روز.' },
-        vpn: { title: 'پکیج هدیه VPN', desc: '۱۰ گیگابایت اینترنت آزاد ماهانه + سرورهای اختصاصی.' },
-        payment: { title: 'درگاه پرداخت امن', desc: 'پرداخت از طریق کلیه کارت‌های عضو شتاب.' },
-        fast: { title: 'تحویل آنی (۱-۲۴ ساعت)', desc: 'شروع پردازش سفارش بلافاصله پس از پرداخت.' },
-        support: { title: 'پشتیبانی اختصاصی', desc: 'پاسخگویی مستقیم توسط مدیر در تلگرام.' }
+        moneyBack: { title: 'ضمانت بازگشت وجه', desc: 'عودت کامل وجه در صورت عدم رضایت یا عدم فعال‌سازی موفق.' },
+        performance: { title: 'عملکرد پایدار', desc: 'تضمین پایداری و عملکرد اکانت تا آخرین روز اشتراک.' },
+        vpn: { title: 'اینترنت آزاد هدیه', desc: '۱۰ گیگابایت VPN اختصاصی ماهانه با لوکیشن‌های متنوع.' },
+        payment: { title: 'پرداخت ریالی امن', desc: 'امکان پرداخت با کلیه کارت‌های عضو شبکه شتاب.' },
+        fast: { title: 'تحویل فوق سریع', desc: 'شروع فرآیند فعال‌سازی بلافاصله پس از تایید سفارش.' },
+        support: { title: 'پشتیبانی مستقیم', desc: 'ارتباط مستقیم با مدیریت جهت رفع هرگونه مشکل احتمالی.' }
       }
     },
     steps: {
-      title: 'راهنمای خرید',
-      subtitle: 'سفارش شما در ۴ مرحله ساده تکمیل می‌شود.',
-      supportStatus: 'اپراتور آنلاین است',
+      title: 'روند خرید آسان',
+      subtitle: 'تنها در ۴ مرحله به هوش مصنوعی نامحدود دسترسی پیدا کنید.',
+      supportStatus: 'پشتیبانی آنلاین',
       items: {
-        step1: { title: 'ارسال سفارش', desc: 'در تلگرام به @Rahbarusd پیام دهید.' },
-        step2: { title: 'دریافت فاکتور', desc: 'ایمیل خود را جهت صدور لایسنس ارسال کنید.' },
-        step3: { title: 'پرداخت امن', desc: 'مبلغ را از طریق درگاه یا کارت واریز کنید.' },
-        step4: { title: 'تحویل محصول', desc: 'اکانت آماده شده و اطلاعات ارسال می‌شود.' }
+        step1: { title: 'ثبت سفارش', desc: 'پیام به آیدی @Rahbarusd در تلگرام.' },
+        step2: { title: 'ارسال ایمیل', desc: 'ارسال ایمیل جهت صدور فاکتور و لایسنس.' },
+        step3: { title: 'پرداخت وجه', desc: 'واریز مبلغ از طریق کارت به کارت یا درگاه.' },
+        step4: { title: 'تحویل اکانت', desc: 'دریافت اطلاعات ورود و کانفیگ VPN هدیه.' }
       },
-      securityTitle: 'تضمین امنیت خرید',
-      securityDesc: 'تمامی تراکنش‌ها و اطلاعات کاربری شما نزد ما محفوظ است. ما نماینده رسمی فروش سرویس‌های دیجیتال هستیم.'
+      securityTitle: 'امنیت و حریم خصوصی',
+      securityDesc: 'اطلاعات شما نزد ما کاملاً محفوظ است. ما متعهد به حفظ حریم خصوصی و امنیت دیجیتال شما هستیم.'
     },
     faq: {
-      title: 'پرسش‌های متداول',
+      title: 'سوالات متداول',
       items: {
-        q1: { q: 'آیا این اشتراک قانونی است؟', a: 'بله، تمام اشتراک‌ها روی ایمیل شخصی شما و به صورت کاملاً قانونی پرداخت و فعال می‌شوند (هک شده یا کرکی نیستند).' },
-        q2: { q: 'هدیه VPN چگونه فعال می‌شود؟', a: 'پس از خرید اشتراک، کانفیگ اختصاصی VPN مولتی‌لوکیشن برای شما در تلگرام ارسال می‌شود.' },
-        q3: { q: 'تفاوت پلن Go با Plus چیست؟', a: 'پلن Go نسخه اقتصادی و سبک‌تر OpenAI برای دسترسی پایدار و سریع با هزینه کمتر است.' },
-        q4: { q: 'اگر اکانت مشکل پیدا کرد چه کنم؟', a: 'پشتیبانی ما در تمام طول دوره گارانتی پاسخگوی شماست و در صورت نیاز اکانت جایگزین می‌شود.' }
+        q1: { q: 'آیا اکانت روی ایمیل خودم فعال می‌شود؟', a: 'بله، صد در صد. ما اشتراک را مستقیماً روی ایمیل شخصی شما خریداری و فعال می‌کنیم.' },
+        q2: { q: 'هدیه VPN چه ویژگی‌هایی دارد؟', a: 'VPN اختصاصی با حجم ۱۰ گیگابایت ماهانه و قابلیت انتخاب لوکیشن، مناسب برای ترید و کارهای حساس.' },
+        q3: { q: 'تفاوت نسخه Go با Plus چیست؟', a: 'نسخه Go یک پلن اقتصادی و پایدار است که دسترسی به قابلیت‌های اصلی را با هزینه بسیار کمتر فراهم می‌کند.' },
+        q4: { q: 'در صورت قطعی اکانت چه اتفاقی می‌افتد؟', a: 'در طول دوره ضمانت، هرگونه مشکل قطعی با جایگزینی اکانت یا رفع مشکل پوشش داده می‌شود.' }
       }
     },
     trust: {
-      title: 'چرا به ما اعتماد کنید؟',
+      title: 'اعتماد شما، سرمایه ماست',
       items: [
-        'احراز هویت کامل فروشنده',
-        'سابقه فعالیت درخشان در تلگرام',
-        'رضایت صدها مشتری فعال'
+        'احراز هویت کامل',
+        'سابقه طولانی',
+        'رضایت مشتریان'
       ],
-      cta: 'عضویت در کانال اعتماد'
+      cta: 'عضویت در کانال'
     },
     cta: {
-      title: 'هنوز سوالی دارید؟',
-      subtitle: 'مشاوره رایگان قبل از خرید در تلگرام.',
-      button: 'تماس با پشتیبانی'
+      title: 'هنوز مطمئن نیستید؟',
+      subtitle: 'همین حالا برای مشاوره رایگان پیام دهید.',
+      button: 'ارتباط با پشتیبانی'
     },
     footer: {
       rights: 'تمامی حقوق محفوظ است.',
-      slogan: 'PanbeNet — دروازه دسترسی آزاد.',
+      slogan: 'PanbeNet — پیشرو در خدمات هوش مصنوعی.',
       links: {
-        terms: 'قوانین و مقررات',
+        terms: 'قوانین',
         privacy: 'حریم خصوصی',
-        contact: 'تماس با ما'
+        contact: 'تماس'
       }
     }
   },
   en: {
     nav: {
       features: 'Product',
-      how: 'Buy',
-      seller: 'Seller',
+      how: 'Process',
+      seller: 'About',
       faq: 'FAQ',
     },
     hero: {
-      badge: 'In Stock - Instant Delivery',
+      badge: 'Limited Stock - Instant Delivery',
       title: <>Original <span className="text-brand-accent">ChatGPT Go</span> Subscription</>,
-      subtitle: <>12-Month legal license on your personal email. No interruptions, VPN included, Money-back guarantee.</>,
-      ctaPrimary: 'Add to Cart (Telegram)',
-      ctaSecondary: 'Specs',
+      subtitle: <>12-Month legal license on your personal email. Zero interruptions, no constant IP changes needed. Experience AI without borders.</>,
+      ctaPrimary: 'Order on Telegram',
+      ctaSecondary: 'View Specs',
       trust: ['Exchange Warranty', 'Authenticity Guaranteed', '24/7 Support'],
       pricing: {
         title: 'ChatGPT Go - 1 Year',
         period: '1 Year Legal License',
-        special: 'Special Discount',
+        special: 'Special Offer',
         price: '2,500,000',
         unit: 'Tomans',
         note: 'Price updated just now',
         features: [
           "Activated on your personal email",
-          "Access to 3.5 & 4 models (Limited)",
+          "Stable access to AI models",
           "No frequent IP changes needed",
           "Gift: 90GB Monthly VPN",
-          "Money-back guarantee"
+          "Full Money-back guarantee"
         ],
         button: 'Buy & Activate Now'
       }
     },
     seller: {
-      title: 'Verified Seller',
+      title: 'Verified Profile',
       name: 'Tawana Mohammadi',
-      role: 'Founder of PanbeNet',
-      bio: 'Guaranteed quality services in Iran. Verified identity with years of experience in international digital services.',
+      role: 'Web Developer & AI Researcher',
+      bio: 'Independent AI researcher, data strategist, and educator focused on Ethical AI, data transparency, and human-centered AI design. Founder of Tawana Network.',
       channelTitle: 'Official Channel',
       channelId: '@panbehnet',
-      cta: 'View Full Profile'
+      cta: 'View Full Bio'
     },
     features: {
-      title: 'Product Features',
-      subtitle: 'Why is this the best choice for you?',
+      title: 'Limitless Possibilities',
+      subtitle: 'Designed for those who value quality.',
       items: {
-        moneyBack: { title: 'Money-Back Guarantee', desc: '100% refund if activation fails.' },
-        warranty: { title: '1-Month Warranty', desc: 'Account stability guaranteed for 30 days.' },
-        vpn: { title: 'VPN Gift Package', desc: '10GB free monthly data + dedicated servers.' },
-        payment: { title: 'Secure Payment', desc: 'Payment via all major debit cards.' },
-        fast: { title: 'Instant Delivery', desc: 'Order processing starts immediately after payment.' },
-        support: { title: 'Dedicated Support', desc: 'Direct response from the manager on Telegram.' }
+        moneyBack: { title: 'Money-Back Guarantee', desc: 'Full refund if not satisfied or activation fails.' },
+        performance: { title: 'Stable Performance', desc: 'Guaranteed account stability until the last day.' },
+        vpn: { title: 'Free VPN Gift', desc: '10GB dedicated monthly VPN with diverse locations.' },
+        payment: { title: 'Secure Payment', desc: 'Payment via all major local debit cards.' },
+        fast: { title: 'Super Fast Delivery', desc: 'Activation process starts immediately after confirmation.' },
+        support: { title: 'Direct Support', desc: 'Direct contact with management for any issues.' }
       }
     },
     steps: {
-      title: 'How to Buy',
-      subtitle: 'Complete your order in 4 simple steps.',
-      supportStatus: 'Agent Online',
+      title: 'Easy Purchase Process',
+      subtitle: 'Access unlimited AI in just 4 simple steps.',
+      supportStatus: 'Online Support',
       items: {
-        step1: { title: 'Order', desc: 'Message @Rahbarusd on Telegram.' },
-        step2: { title: 'Invoice', desc: 'Send your email for license issuance.' },
-        step3: { title: 'Payment', desc: 'Pay via secure gateway or card.' },
-        step4: { title: 'Delivery', desc: 'Receive account credentials instantly.' }
+        step1: { title: 'Place Order', desc: 'Message @Rahbarusd on Telegram.' },
+        step2: { title: 'Send Email', desc: 'Send email for invoice and license issuance.' },
+        step3: { title: 'Payment', desc: 'Transfer amount via card-to-card or gateway.' },
+        step4: { title: 'Delivery', desc: 'Receive login info and gift VPN config.' }
       },
-      securityTitle: 'Secure Purchase',
-      securityDesc: 'All transactions and user data are secure. We are an official reseller of digital services.'
+      securityTitle: 'Security & Privacy',
+      securityDesc: 'Your data is completely safe with us. We are committed to your digital privacy and security.'
     },
     faq: {
       title: 'FAQ',
       items: {
-        q1: { q: 'Is this legal?', a: 'Yes, all subscriptions are paid for and activated legally on your email.' },
-        q2: { q: 'How is the VPN activated?', a: 'Config is sent to you on Telegram after purchase.' },
-        q3: { q: 'Difference between Go & Plus?', a: 'Go is the economical version for stable access at a lower cost.' },
-        q4: { q: 'What if it stops working?', a: 'Our support covers you throughout the warranty period.' }
+        q1: { q: 'Is it activated on my own email?', a: 'Yes, 100%. We purchase and activate the subscription directly on your personal email.' },
+        q2: { q: 'What are the VPN gift features?', a: 'Dedicated VPN with 10GB monthly data and location selection, suitable for trading.' },
+        q3: { q: 'Difference between Go and Plus?', a: 'Go is an economical and stable plan providing access to core features at a much lower cost.' },
+        q4: { q: 'What happens if the account disconnects?', a: 'During the warranty period, any disconnection issues are covered by replacement or fix.' }
       }
     },
     trust: {
-      title: 'Why Trust Us?',
+      title: 'Your Trust, Our Asset',
       items: [
-        'Verified Seller Identity',
-        'Excellent Track Record',
-        'Hundreds of Happy Customers'
+        'Full Verification',
+        'Long History',
+        'Customer Satisfaction'
       ],
-      cta: 'Join Trust Channel'
+      cta: 'Join Channel'
     },
     cta: {
-      title: 'Any Questions?',
-      subtitle: 'Free consultation before purchase on Telegram.',
+      title: 'Still Not Sure?',
+      subtitle: 'Message now for a free consultation.',
       button: 'Contact Support'
     },
     footer: {
       rights: 'All rights reserved.',
-      slogan: 'PanbeNet — Gateway to Freedom.',
+      slogan: 'PanbeNet — Leading in AI Services.',
       links: {
         terms: 'Terms',
         privacy: 'Privacy',
