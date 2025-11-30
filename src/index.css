@@ -2,26 +2,26 @@
 
 /* 
  * Custom Theme Configuration
- * Converted from the inline tailwind.config in index.html
+ * Premium Typography and Enhanced Color Palette
  */
 
 @theme {
-  /* Font Family */
-  --font-sans: 'Inter', 'Vazirmatn', system-ui, sans-serif;
-  --font-persian: 'Vazirmatn', sans-serif;
+  /* Font Family - Premium Typography */
+  --font-sans: 'Plus Jakarta Sans', 'Dana', system-ui, sans-serif;
+  --font-persian: 'Dana', 'Plus Jakarta Sans', sans-serif;
 
-  /* Brand Colors */
-  --color-brand-dark: #000000;
-  --color-brand-surface: #121212;
-  --color-brand-accent: #1DB954;
-  --color-brand-secondary: #1ed760;
-  --color-brand-tertiary: #191414;
-  --color-brand-highlight: #282828;
-  --color-brand-subdued: #b3b3b3;
-  --color-brand-muted: #a7a7a7;
-  --color-brand-muted-light: #727272;
-  --color-brand-glass-light: rgba(255, 255, 255, 0.8);
-  --color-brand-glass-dark: rgba(18, 18, 18, 0.7);
+  /* Brand Colors - Enhanced Palette */
+  --color-brand-dark: #0a0a0a;
+  --color-brand-surface: #0d0d0d;
+  --color-brand-accent: #22c55e;
+  --color-brand-secondary: #16a34a;
+  --color-brand-tertiary: #141414;
+  --color-brand-highlight: #27272a;
+  --color-brand-subdued: #a1a1aa;
+  --color-brand-muted: #a1a1aa;
+  --color-brand-muted-light: #71717a;
+  --color-brand-glass-light: rgba(250, 250, 250, 0.8);
+  --color-brand-glass-dark: rgba(10, 10, 10, 0.7);
 
   /* Custom Animations */
   --animate-blob: blob 10s infinite;
@@ -60,21 +60,21 @@
   }
 
   @keyframes glow {
-    0% { box-shadow: 0 0 20px rgba(29, 185, 84, 0.3); }
-    100% { box-shadow: 0 0 40px rgba(29, 185, 84, 0.6); }
+    0% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+    100% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
   }
 }
 
 /* CSS Variables for themes */
 :root {
-  --background: #ffffff; 
+  --background: #fafafa; 
   --foreground: #09090b; 
   --border: #e4e4e7;
 }
 
 .dark {
-  --background: #000000; 
-  --foreground: #ffffff; 
+  --background: #0a0a0a; 
+  --foreground: #fafafa; 
   --border: #27272a;
 }
 
@@ -84,9 +84,9 @@ html {
 
 /* Luxury Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #1DB954; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #22c55e; }
 
 /* Cinematic Noise */
 .bg-noise {
@@ -97,23 +97,23 @@ html {
   height: 100%;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.05;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
 }
 
-/* Dark Mode Mesh - Spotify Style */
+/* Dark Mode Mesh - Enhanced Style */
 .mesh-bg {
-  background-color: #121212;
+  background-color: #0d0d0d;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(29, 185, 84, 0.08), transparent 25%), 
-    radial-gradient(circle at 85% 30%, rgba(30, 215, 96, 0.05), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(34, 197, 94, 0.06), transparent 25%), 
+    radial-gradient(circle at 85% 30%, rgba(22, 163, 74, 0.04), transparent 25%);
 }
 
 /* Light Mode Mesh - Clean with Green accent */
 .light-mesh {
-  background-color: #ffffff;
+  background-color: #fafafa;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(29, 185, 84, 0.05), transparent 40%),
-    radial-gradient(circle at 0% 100%, rgba(29, 185, 84, 0.03), transparent 40%);
+    radial-gradient(circle at 50% 0%, rgba(34, 197, 94, 0.04), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(34, 197, 94, 0.02), transparent 40%);
 }
