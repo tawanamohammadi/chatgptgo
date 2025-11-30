@@ -1,52 +1,213 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Star, ShoppingCart, ShieldCheck, Zap } from 'lucide-react';
+import { Star, ShoppingCart, ShieldCheck, Zap, CheckCircle2, Gift, Play, Pause, Volume2 } from 'lucide-react';
 import { Button } from './ui/Button';
 import { TELEGRAM_LINK, PAYMENT_METHODS } from '../constants';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// Custom Audio Player Component
+const AudioPlayer: React.FC<{ src: string }> = ({ src }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateProgress = () => {
+      setCurrentTime(audio.currentTime);
+      setProgress((audio.currentTime / audio.duration) * 100);
+    };
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+    };
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setProgress(0);
+    };
+
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateProgress);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = x / rect.width;
+    audio.currentTime = percentage * audio.duration;
+  };
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  return (
+    <div className="w-full bg-[#0a0a0a] rounded-2xl p-4 border border-[#27272a]">
+      <audio ref={audioRef} preload="metadata" src={src} />
+      
+      <div className="flex items-center gap-4">
+        {/* Play/Pause Button */}
+        <button
+          onClick={togglePlay}
+          className="w-12 h-12 flex items-center justify-center rounded-full bg-[#22c55e] text-black hover:bg-[#16a34a] transition-all duration-200 shadow-lg shadow-[#22c55e]/30 hover:scale-105"
+        >
+          {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ms-1" />}
+        </button>
+
+        {/* Progress Section */}
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-2">
+            <Volume2 size={14} className="text-[#22c55e]" />
+            <span className="text-xs font-semibold text-white">توضیحات صوتی محصول</span>
+          </div>
+          
+          {/* Progress Bar */}
+          <div 
+            className="h-1.5 bg-[#27272a] rounded-full cursor-pointer relative overflow-hidden"
+            onClick={handleProgressClick}
+          >
+            <div 
+              className="h-full bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full transition-all duration-100"
+              style={{ width: `${progress}%` }}
+            />
+            <div 
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md transition-all duration-100"
+              style={{ left: `calc(${progress}% - 6px)` }}
+            />
+          </div>
+          
+          {/* Time Display */}
+          <div className="flex justify-between text-[10px] text-[#71717a] mt-1 font-mono">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const Hero: React.FC = () => {
   const { content } = useLanguage();
   const productImage = "https://cdn.mos.cms.futurecdn.net/v2/t:0,l:0,cw:3996,ch:2247,q:80,w:2560/JFpeVzCqWC5ZbYTbyWu5m8.jpg";
 
   return (
-    <section id="product" className="relative pt-28 pb-12 lg:pt-40 lg:pb-24 overflow-hidden z-20">
+    <section id="product" className="relative min-h-screen pt-24 pb-8 lg:pt-28 lg:pb-16 overflow-hidden z-20 flex items-center">
       {/* Spotlight Effect */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[500px] bg-[#22c55e]/20 blur-[120px] rounded-full pointer-events-none opacity-50 dark:opacity-30"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-[#22c55e]/15 blur-[120px] rounded-full pointer-events-none opacity-50 dark:opacity-30"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
           
-          {/* Left: Product Visual (Darker, Glossier) */}
+          {/* Left: Enhanced Product Card */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
             transition={{ duration: 1, type: "spring" }}
-            className="lg:w-5/12 w-full max-w-[360px] lg:max-w-none mx-auto perspective-1000 order-1 lg:order-none"
+            className="lg:w-5/12 w-full max-w-[400px] lg:max-w-none mx-auto perspective-1000 order-1 lg:order-none"
           >
             <div className="relative group">
                 {/* Neon Backlight */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#22c55e] to-[#16a34a] opacity-0 group-hover:opacity-40 blur-[60px] transition-opacity duration-700"></div>
 
-                <div className="relative bg-[#141414] backdrop-blur-3xl rounded-[2.5rem] border border-[#27272a] p-2 shadow-2xl dark:shadow-black transition-all duration-200 group-hover:scale-[1.01] group-hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]">
-                    <div className="relative rounded-[2.2rem] overflow-hidden aspect-[4/5] bg-black shadow-inner">
+                <div className="relative bg-[#141414] backdrop-blur-3xl rounded-[2rem] border border-[#27272a] overflow-hidden shadow-2xl dark:shadow-black transition-all duration-200 group-hover:scale-[1.01] group-hover:shadow-[0_0_30px_rgba(34,197,94,0.3)] group-hover:border-[#22c55e]/30">
+                    {/* Product Image Section */}
+                    <div className="relative h-48 overflow-hidden bg-black">
                         <img 
                             src={productImage} 
                             alt="ChatGPT Go" 
                             loading="lazy"
-                            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700 scale-105 group-hover:scale-100"
+                            className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-700 scale-110 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
                         
-                        <div className="absolute bottom-0 inset-x-0 p-8 text-white text-start">
-                             <div className="flex items-center gap-2 mb-4">
-                                <span className="bg-[#22c55e]/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-black shadow-[0_0_15px_-3px_rgba(34,197,94,0.6)]">
-                                    Official
-                                </span>
-                             </div>
-                             <h3 className="text-5xl font-black mb-1 tracking-tighter bg-gradient-to-r from-white via-[#22c55e] to-white bg-clip-text text-transparent" dir="ltr">ChatGPT <span className="text-[#22c55e]">Go</span></h3>
-                             <p className="text-[#a1a1aa] font-bold text-sm tracking-widest uppercase mt-2">ChatGPT Go Exclusive</p>
+                        {/* Badge */}
+                        <div className="absolute top-4 start-4 flex items-center gap-2">
+                            <span className="bg-[#22c55e] px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-black shadow-lg shadow-[#22c55e]/40">
+                                Official
+                            </span>
+                            <span className="bg-[#0a0a0a]/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-[#22c55e] border border-[#22c55e]/30">
+                                {content.hero.pricing.special}
+                            </span>
                         </div>
+                    </div>
+
+                    {/* Product Info Section */}
+                    <div className="p-6">
+                        {/* Title */}
+                        <h3 className="text-2xl font-black text-white mb-1 tracking-tight flex items-center gap-2" dir="ltr">
+                            <span className="text-[#22c55e]">●</span>
+                            {content.hero.pricing.title}
+                        </h3>
+                        <p className="text-[#d4d4d8] text-sm font-medium mb-4">{content.hero.pricing.period}</p>
+
+                        {/* Price */}
+                        <div className="bg-[#0a0a0a] rounded-xl p-4 mb-4 border border-[#27272a]">
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-3xl font-black text-white">{content.hero.pricing.price}</span>
+                                <span className="text-sm font-bold text-[#a1a1aa]">{content.hero.pricing.unit}</span>
+                            </div>
+                            <p className="text-[10px] text-[#71717a] mt-1">{content.hero.pricing.note}</p>
+                        </div>
+
+                        {/* Features List */}
+                        <ul className="space-y-2.5 mb-5">
+                            {content.hero.pricing.features.map((feature, i) => (
+                                <li key={i} className="flex items-start gap-2.5 text-sm">
+                                    <CheckCircle2 size={16} className="text-[#22c55e] mt-0.5 flex-shrink-0" />
+                                    <span className="text-[#e4e4e7] font-medium">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {/* Guarantee Badge */}
+                        <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-xl p-3 mb-5 flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-[#22c55e]/20 flex items-center justify-center">
+                                <ShieldCheck size={20} className="text-[#22c55e]" />
+                            </div>
+                            <div>
+                                <p className="text-[#22c55e] font-bold text-sm">ضمانت بازگشت وجه</p>
+                                <p className="text-[#a1a1aa] text-xs">در صورت عدم رضایت، وجه کامل عودت داده می‌شود</p>
+                            </div>
+                        </div>
+
+                        {/* Audio Player */}
+                        <AudioPlayer src="https://raw.githubusercontent.com/tawanamohammadi/chatgptgo/main/audio/gotgo.mp3" />
+
+                        {/* Buy Button */}
+                        <Button href={TELEGRAM_LINK} variant="primary" className="w-full mt-5 py-4 text-base rounded-xl shadow-[0_10px_40px_-10px_rgba(34,197,94,0.5)] hover:scale-[1.02] transition-transform duration-200">
+                            <ShoppingCart size={18} className="me-2" />
+                            {content.hero.pricing.button}
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -59,7 +220,7 @@ export const Hero: React.FC = () => {
              transition={{ delay: 0.2, duration: 0.8 }}
              className="lg:w-7/12 flex flex-col items-center lg:items-start text-center lg:text-start order-2 lg:order-none"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141414] border border-[#27272a] text-[#22c55e] text-[11px] font-bold mb-6 shadow-lg tracking-wide uppercase">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141414] border border-[#27272a] text-[#22c55e] text-[11px] font-bold mb-5 shadow-lg tracking-wide uppercase">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
@@ -67,66 +228,49 @@ export const Hero: React.FC = () => {
                 {content.hero.badge}
             </div>
 
-            <h1 className="text-[clamp(2.5rem,5.5vw,5rem)] font-black text-foreground leading-[0.95] mb-6 tracking-tighter drop-shadow-lg bg-gradient-to-r from-[#fafafa] via-[#22c55e] to-[#fafafa] bg-clip-text">
-                {content.hero.pricing.title}
+            <h1 className="text-[clamp(2rem,5vw,4rem)] font-black text-white leading-[1.1] mb-5 tracking-tight">
+                {content.hero.title}
             </h1>
 
-            <p className="text-lg md:text-xl text-[#a1a1aa] leading-relaxed mb-10 max-w-xl font-medium">
+            <p className="text-base md:text-lg text-[#d4d4d8] leading-relaxed mb-8 max-w-xl font-medium">
                 {content.hero.subtitle}
             </p>
 
-            {/* Price Block - Minimalist */}
-            <div className="flex flex-col gap-1 mb-10">
-                <div className="flex items-baseline justify-center lg:justify-start gap-1">
-                    <span className="text-[3.5rem] md:text-[4.5rem] font-black text-[#fafafa] tracking-tighter leading-none">
-                        {content.hero.pricing.price}
-                    </span>
-                    <span className="text-xl font-bold text-[#71717a] uppercase translate-y-[-10px]">{content.hero.pricing.unit}</span>
+            {/* Stats/Trust Indicators */}
+            <div className="grid grid-cols-3 gap-4 w-full max-w-lg mb-8">
+                <div className="bg-[#141414] border border-[#27272a] rounded-xl p-4 text-center hover:border-[#22c55e]/30 transition-colors duration-200">
+                    <div className="text-2xl font-black text-[#22c55e] mb-1">1250+</div>
+                    <div className="text-xs text-[#a1a1aa] font-medium">مشتری راضی</div>
                 </div>
-                <div className="h-1 w-24 bg-gradient-to-r from-[#22c55e] to-[#16a34a] rounded-full mx-auto lg:mx-0"></div>
+                <div className="bg-[#141414] border border-[#27272a] rounded-xl p-4 text-center hover:border-[#22c55e]/30 transition-colors duration-200">
+                    <div className="text-2xl font-black text-[#22c55e] flex items-center justify-center gap-1">
+                        4.9 <Star size={16} fill="#22c55e" />
+                    </div>
+                    <div className="text-xs text-[#a1a1aa] font-medium">امتیاز کاربران</div>
+                </div>
+                <div className="bg-[#141414] border border-[#27272a] rounded-xl p-4 text-center hover:border-[#22c55e]/30 transition-colors duration-200">
+                    <div className="text-2xl font-black text-[#22c55e]">24/7</div>
+                    <div className="text-xs text-[#a1a1aa] font-medium">پشتیبانی</div>
+                </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4 mb-12">
-                <Button href={TELEGRAM_LINK} variant="primary" className="px-12 py-4 text-lg rounded-full w-full sm:w-auto shadow-[0_10px_40px_-10px_rgba(34,197,94,0.5)] hover:scale-105 transition-transform duration-200">
-                    <ShoppingCart size={20} className="me-2" />
+            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4 mb-8">
+                <Button href={TELEGRAM_LINK} variant="primary" className="px-10 py-4 text-base rounded-full w-full sm:w-auto shadow-[0_10px_40px_-10px_rgba(34,197,94,0.5)] hover:scale-105 transition-transform duration-200">
+                    <ShoppingCart size={18} className="me-2" />
                     {content.hero.ctaPrimary}
                 </Button>
-                <Button href="#how" variant="glass" className="px-10 py-4 text-lg rounded-full w-full sm:w-auto">
+                <Button href="#how" variant="glass" className="px-8 py-4 text-base rounded-full w-full sm:w-auto">
                     {content.hero.ctaSecondary}
                 </Button>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="flex items-center gap-4 text-xs font-bold text-[#a1a1aa] uppercase tracking-wider">
+            {/* Trust Badges */}
+            <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-wider">
                 {content.hero.trust.map((item, i) => (
-                    <span key={i} className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#141414] border border-[#27272a]">
-                        <ShieldCheck size={12} className="text-[#22c55e]" /> {item}
+                    <span key={i} className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#141414] border border-[#27272a] text-[#d4d4d8] hover:border-[#22c55e]/30 transition-colors duration-200">
+                        <ShieldCheck size={14} className="text-[#22c55e]" /> {item}
                     </span>
                 ))}
-            </div>
-
-            {/* Audio Guide Section */}
-            <div className="w-full mt-8 p-4 bg-[#141414]/80 backdrop-blur-lg rounded-2xl border border-[#27272a]">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="bg-[#22c55e]/20 p-2 rounded-full" aria-hidden="true">
-                  <svg className="w-5 h-5 text-[#22c55e]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
-                  </svg>
-                </span>
-                <div>
-                  <p className="text-[#fafafa] font-semibold text-sm" aria-hidden="true">🎧 توضیحات صوتی محصول</p>
-                  <p className="text-[#a1a1aa] text-xs">برای شنیدن توضیحات کامل، پخش کنید</p>
-                </div>
-              </div>
-              <audio 
-                controls 
-                preload="none"
-                className="w-full h-10 rounded-lg"
-                aria-label="توضیحات صوتی محصول ChatGPT Go"
-              >
-                <source src="https://raw.githubusercontent.com/tawanamohammadi/chatgptgo/main/audio/gotgo.mp3" type="audio/mpeg" />
-                مرورگر شما از پخش صوت پشتیبانی نمی‌کند.
-              </audio>
             </div>
 
           </motion.div>

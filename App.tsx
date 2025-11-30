@@ -3,6 +3,7 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
 import { Steps } from './components/Steps';
+import { OrderForm } from './components/OrderForm';
 import { Seller } from './components/Seller';
 import { FAQ } from './components/FAQ';
 import { Footer } from './components/Footer';
@@ -32,6 +33,7 @@ const MainContent: React.FC = () => {
                 <Hero />
                 <Features />
                 <Steps />
+                <OrderForm />
                 <Seller />
                 <FAQ />
 
