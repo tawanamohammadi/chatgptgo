@@ -59,7 +59,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -76,25 +76,27 @@
               background: "var(--background)",
               foreground: "var(--foreground)",
               brand: {
-                dark: '#020617', // Slate 950
-                accent: '#6366f1', // Indigo 500
-                secondary: '#8b5cf6', // Violet 500
-                tertiary: '#3b82f6', // Blue 500
-                accentHover: '#4f46e5', // Indigo 600
-                muted: '#64748b', // Slate 500
-                mutedLight: '#94a3b8', // Slate 400
-                card: '#0f172a',
+                dark: '#000000', // True Black
+                surface: '#121212', // Spotify/Surface Black
+                accent: '#8b5cf6', // Electric Violet
+                secondary: '#d946ef', // Fuchsia / Neon Pink
+                tertiary: '#06b6d4', // Cyan
+                success: '#1db954', // Spotify Green
+                accentHover: '#7c3aed',
+                muted: '#a1a1aa', 
+                mutedLight: '#71717a', 
                 glass: {
-                  light: 'rgba(255, 255, 255, 0.75)',
-                  dark: 'rgba(15, 23, 42, 0.6)',
+                  light: 'rgba(255, 255, 255, 0.8)',
+                  dark: 'rgba(18, 18, 18, 0.7)',
                 }
               }
             },
             animation: {
-              'blob': 'blob 7s infinite',
+              'blob': 'blob 10s infinite',
               'float': 'float 6s ease-in-out infinite',
               'mesh': 'mesh 20s infinite ease-in-out',
               'shimmer': 'shimmer 2s infinite',
+              'spotlight': 'spotlight 2s forwards',
             },
             keyframes: {
               blob: {
@@ -113,6 +115,10 @@
               },
               shimmer: {
                 '100%': { transform: 'translateX(100%)' },
+              },
+              spotlight: {
+                '0%': { opacity: 0, transform: 'translate(-50%, -50%) scale(0.5)' },
+                '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
               }
             }
           },
@@ -121,25 +127,25 @@
     </script>
     <style>
       :root {
-        --background: #f8fafc; 
-        --foreground: #0f172a; 
-        --border: #e2e8f0;
+        --background: #ffffff; 
+        --foreground: #09090b; 
+        --border: #e4e4e7;
       }
       .dark {
-        --background: #020617; 
-        --foreground: #f8fafc; 
-        --border: #1e293b;
+        --background: #000000; 
+        --foreground: #ffffff; 
+        --border: #27272a;
       }
       
       html { scroll-behavior: smooth; }
       
       /* Luxury Scrollbar */
       ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: transparent; }
-      ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 10px; }
-      ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.6); }
+      ::-webkit-scrollbar-track { background: #000; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
 
-      /* Improved Cinematic Noise */
+      /* Cinematic Noise */
       .bg-noise {
         position: fixed;
         top: 0;
@@ -147,32 +153,26 @@
         width: 100%;
         height: 100%;
         pointer-events: none;
-        z-index: 50; /* Bring to front for film grain effect */
-        opacity: 0.035;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        z-index: 50;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         mix-blend-mode: overlay;
       }
-      .dark .bg-noise { opacity: 0.05; }
-
-      /* Mesh Background */
+      
+      /* Dark Mode Mesh - Mysterious & Neon */
       .mesh-bg {
-        background-color: #020617;
+        background-color: #000000;
         background-image: 
-          radial-gradient(at 0% 0%, hsla(250, 40%, 10%, 1) 0, transparent 50%), 
-          radial-gradient(at 50% 0%, hsla(220, 40%, 15%, 1) 0, transparent 50%), 
-          radial-gradient(at 100% 0%, hsla(280, 40%, 15%, 1) 0, transparent 50%);
-        background-size: 150% 150%;
-        animation: mesh 25s ease infinite;
+          radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%), 
+          radial-gradient(circle at 85% 30%, rgba(217, 70, 239, 0.1), transparent 25%);
       }
       
+      /* Light Mode Mesh - Clean & Frosty */
       .light-mesh {
-        background-color: #f8fafc;
+        background-color: #ffffff;
         background-image: 
-          radial-gradient(at 0% 0%, hsla(240, 100%, 96%, 1) 0px, transparent 50%),
-          radial-gradient(at 100% 0%, hsla(260, 100%, 97%, 1) 0px, transparent 50%),
-          radial-gradient(at 50% 100%, hsla(210, 100%, 96%, 1) 0px, transparent 50%);
-        background-size: 150% 150%;
-        animation: mesh 20s ease infinite;
+          radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.05), transparent 40%),
+          radial-gradient(circle at 0% 100%, rgba(6, 182, 212, 0.05), transparent 40%);
       }
     </style>
   <script type="importmap">
