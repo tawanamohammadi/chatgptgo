@@ -5,6 +5,7 @@
 ### پلتفرم فروش اشتراک ChatGPT با ضمانت و پشتیبانی ۲۴/۷
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Site-22c55e?style=for-the-badge)](https://tawanashahsavari.github.io/chatgptgo/)
+[![License](https://img.shields.io/badge/⚖️_License-Proprietary-red?style=for-the-badge)](#-license--لایسنس)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
@@ -14,7 +15,31 @@
 
 **[🇮🇷 فارسی](#-نسخه-فارسی)** • **[🇬🇧 English](#-english-version)**
 
+<br/>
+
+### 🤖 Built with AI | ساخته شده با هوش مصنوعی
+
+[![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-Agent-000?style=for-the-badge&logo=github)](https://github.com/copilot)
+[![Claude](https://img.shields.io/badge/Claude-Opus_4-cc785c?style=for-the-badge&logo=anthropic)](https://anthropic.com)
+[![Gemini](https://img.shields.io/badge/Gemini-2.5_Pro-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev)
+
 </div>
+
+---
+
+<div align="center">
+
+## ⚠️ LICENSE | لایسنس
+
+### 🚫 ALL RIGHTS RESERVED - تمامی حقوق محفوظ است
+
+</div>
+
+> **⚖️ This project is under a PROPRIETARY LICENSE. Any unauthorized copying, modification, or distribution is STRICTLY PROHIBITED and will result in LEGAL ACTION.**
+> 
+> **⚖️ این پروژه تحت لایسنس انحصاری است. هرگونه کپی، تغییر یا توزیع غیرمجاز کاملاً ممنوع بوده و منجر به پیگرد قانونی خواهد شد.**
+
+📜 [Read Full License](./LICENSE)
 
 ---
 
@@ -47,29 +72,15 @@
 
 <br/>
 
-### 🛠️ تکنولوژی‌ها
+### 🤖 ساخته شده با هوش مصنوعی
 
-```
-React 19.2 • TypeScript 5.8 • Tailwind CSS 4.1 • Vite 6.2 • Framer Motion
-```
+این پروژه با استفاده از ابزارهای پیشرفته هوش مصنوعی توسعه یافته است:
 
-<br/>
-
-### 🚀 راه‌اندازی محلی
-
-```bash
-# کلون کردن ریپازیتوری
-git clone https://github.com/tawanamohammadi/chatgptgo.git
-
-# نصب وابستگی‌ها
-npm install
-
-# اجرای سرور توسعه
-npm run dev
-
-# بیلد برای پروداکشن
-npm run build
-```
+| ابزار | نقش |
+|-------|-----|
+| **[GitHub Copilot](https://github.com/copilot)** | ایجنت هوشمند کدنویسی |
+| **Claude Opus 4** | دستیار هوش مصنوعی پیشرفته |
+| **Gemini 2.5 Pro** | شروع و پایه‌گذاری پروژه |
 
 <br/>
 
@@ -114,29 +125,15 @@ npm run build
 
 <br/>
 
-### 🛠️ Tech Stack
+### 🤖 Built with AI
 
-```
-React 19.2 • TypeScript 5.8 • Tailwind CSS 4.1 • Vite 6.2 • Framer Motion
-```
+This project was developed using cutting-edge AI tools:
 
-<br/>
-
-### 🚀 Local Development
-
-```bash
-# Clone the repository
-git clone https://github.com/tawanamohammadi/chatgptgo.git
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
+| Tool | Role |
+|------|------|
+| **[GitHub Copilot](https://github.com/copilot)** | Intelligent coding agent |
+| **Claude Opus 4** | Advanced AI assistant |
+| **Gemini 2.5 Pro** | Project initialization |
 
 <br/>
 
@@ -160,41 +157,54 @@ npm run build
 
 ```
 chatgptgo/
-├── components/          # React components
+├── 📁 .github/          # GitHub workflows & configs
+├── 📁 components/       # React components
 │   ├── Hero.tsx        # Hero section with product card
 │   ├── Features.tsx    # Features grid
 │   ├── OrderForm.tsx   # Order form component
-│   ├── AudioPlayer.tsx # Custom Spotify-style audio player
 │   └── ...
-├── contexts/           # React contexts
-│   ├── LanguageContext.tsx
-│   └── ThemeContext.tsx
-├── src/
-│   └── index.css       # Global styles & Tailwind config
-├── constants.tsx       # Content & translations
-├── App.tsx            # Main app component
-└── index.html         # Entry HTML with SEO meta tags
+├── 📁 contexts/         # React contexts
+├── 📁 image/            # Preview images
+├── 📁 src/              # Source styles
+├── 📄 App.tsx           # Main app component
+├── 📄 constants.tsx     # Content & translations
+├── 📄 LICENSE           # Proprietary license
+└── 📄 vite.config.ts    # Vite configuration
 ```
 
 </div>
-
-<br/>
 
 ---
 
 <div align="center">
 
-### ⭐ Star this repo if you find it useful!
+## 🔗 Links | لینک‌ها
 
-<br/>
+| | Link |
+|---|------|
+| 🌐 **Live Demo** | [tawanashahsavari.github.io/chatgptgo](https://tawanashahsavari.github.io/chatgptgo/) |
+| 📖 **Tutorial** | [tawanashahsavari.github.io/chatgptgo/#tutorial](https://tawanashahsavari.github.io/chatgptgo/#tutorial) |
+| 📱 **Telegram** | [@Rahbarusd](https://t.me/Rahbarusd) |
+| 📢 **Channel** | [@chatgptgo](https://t.me/chatgptgo) |
+
+</div>
+
+---
+
+<div align="center">
+
+## ⚠️ Copyright Notice
+
+**© 2025 Tawana Mohammadi. ALL RIGHTS RESERVED.**
+
+This software is proprietary and confidential. Unauthorized copying, transfer, or reproduction of this software, via any medium, is strictly prohibited.
+
+**Violators will be prosecuted to the fullest extent of the law.**
+
+---
 
 **Made with ❤️ by [Tawana Mohammadi](https://github.com/tawanamohammadi)**
 
-<br/>
-[![GitHub stars](https://img.shields.io/github/stars/tawanamohammadi/chatgptgo?style=social)](https://github.com/tawanamohammadi/chatgptgo)
-[![GitHub forks](https://img.shields.io/github/forks/tawanamohammadi/chatgptgo?style=social)](https://github.com/tawanamohammadi/chatgptgo)
-
-<br/>
-© 2025 ChatGPT Go. All rights reserved.
+🤖 Powered by **GitHub Copilot** • **Claude Opus 4** • **Gemini 2.5 Pro**
 
 </div>
