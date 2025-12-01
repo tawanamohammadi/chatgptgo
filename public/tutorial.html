@@ -88,6 +88,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/nicholasbaldez/fonts@main/Dana/css/fontiran.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
 
     <style>
       :root {
@@ -118,13 +119,13 @@
 
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html { scroll-behavior: smooth; scroll-padding-top: 120px; }
-      body { font-family: 'Dana', 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.8; direction: rtl; min-height: 100vh; overflow-x: hidden; }
+      body { font-family: 'Vazirmatn', system-ui, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.6; direction: rtl; min-height: 100vh; overflow-x: hidden; }
       body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.05) 0%, transparent 50%); pointer-events: none; z-index: 0; transform: translateZ(0); will-change: transform; }
       ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: var(--bg-dark); }
       ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 10px; }
       ::selection { background: rgba(34, 197, 94, 0.3); color: var(--text-primary); }
-      .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+      .container { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
       
       /* Animation classes for IntersectionObserver */
       .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
@@ -150,7 +151,7 @@
       .header-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; animation: fadeInUp 0.6s ease 0.1s both; }
       .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); color: var(--brand-accent); padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600; }
       .badge.reading-time { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2); color: #3b82f6; }
-      .header h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.3; animation: fadeInUp 0.6s ease 0.2s both; }
+      .header h1 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--text-primary) 0%, var(--brand-accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.3; animation: fadeInUp 0.6s ease 0.2s both; }
       .header .subtitle { color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; animation: fadeInUp 0.6s ease 0.3s both; }
 
       .countdown-banner { margin-top: 2rem; padding: 1.25rem 2rem; background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.1) 100%); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 1rem; display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.6s ease 0.4s both, borderGlow 2s ease-in-out infinite; }
