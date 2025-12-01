@@ -254,7 +254,12 @@ export const OrderForm: React.FC = () => {
                 <div className="flex items-center gap-2 p-4 rounded-xl bg-[#22c55e]/5 border border-[#22c55e]/20">
                   <BookOpen size={18} className="text-[#22c55e]" />
                   <span className="text-sm text-[#a1a1aa]">{t.invoiceLinkHelp}</span>
-                  <a href="#tutorial" className="text-sm font-bold text-[#22c55e] hover:underline ms-auto">
+                  <a 
+                    href="tutorial.html" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm font-bold text-[#22c55e] hover:underline ms-auto"
+                  >
                     {t.viewTutorial}
                   </a>
                 </div>
