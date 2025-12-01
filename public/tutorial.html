@@ -14,7 +14,7 @@
     <meta name="author" content="توانا محمدی - PanbehNet" />
     <meta name="revisit-after" content="1 days" />
     <link rel="canonical" href="https://tawanashahsavari.github.io/chatgptgo/tutorial.html" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🚀%3C/text%3E%3C/svg%3E" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article" />
@@ -119,12 +119,16 @@
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html { scroll-behavior: smooth; scroll-padding-top: 120px; }
       body { font-family: 'Dana', 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.8; direction: rtl; min-height: 100vh; overflow-x: hidden; }
-      body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.05) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+      body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 80%, rgba(34, 197, 94, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(34, 197, 94, 0.05) 0%, transparent 50%); pointer-events: none; z-index: 0; transform: translateZ(0); will-change: transform; }
       ::-webkit-scrollbar { width: 8px; }
       ::-webkit-scrollbar-track { background: var(--bg-dark); }
       ::-webkit-scrollbar-thumb { background: var(--gradient-primary); border-radius: 10px; }
       ::selection { background: rgba(34, 197, 94, 0.3); color: var(--text-primary); }
       .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+      
+      /* Animation classes for IntersectionObserver */
+      .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .animate-on-scroll.animate-visible { opacity: 1; transform: translateY(0); }
 
       .progress-tracker { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--bg-glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-glass); padding: 0.75rem 0; transform: translateY(-100%); transition: transform 0.3s ease; }
       .progress-tracker.visible { transform: translateY(0); }
@@ -1055,9 +1059,16 @@
         item.classList.toggle('open');
       }
 
-      // Copy Link
+      // Helper function to convert numbers to Persian
+      function toPersianNumbers(str) {
+        const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+        return String(str).replace(/[0-9]/g, d => persianDigits[d]);
+      }
+
+      // Copy Link - copies the example link shown in the tutorial
       function copyLink() {
-        const text = 'https://chatgpt.com/checkout/...';
+        const exampleLink = document.getElementById('exampleLink');
+        const text = exampleLink ? exampleLink.textContent : 'https://chatgpt.com/checkout/...';
         navigator.clipboard.writeText(text).then(() => {
           const btn = document.querySelector('.copy-btn');
           btn.classList.add('copied');
@@ -1069,14 +1080,16 @@
         });
       }
 
-      // Countdown Timer
-      let timeLeft = 300; // 5 minutes in seconds
+      // Countdown Timer Configuration
+      const COUNTDOWN_SECONDS = 300; // 5 minutes
+      let timeLeft = COUNTDOWN_SECONDS;
       const timerDisplay = document.getElementById('countdownTimer');
       
       function updateTimer() {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
-        timerDisplay.textContent = `${String(minutes).padStart(2, '۰').replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d])}:${String(seconds).padStart(2, '۰').replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d])}`;
+        const formattedTime = `${toPersianNumbers(String(minutes).padStart(2, '0'))}:${toPersianNumbers(String(seconds).padStart(2, '0'))}`;
+        timerDisplay.textContent = formattedTime;
         if (timeLeft > 0) {
           timeLeft--;
           setTimeout(updateTimer, 1000);
@@ -1084,16 +1097,17 @@
       }
       updateTimer();
 
-      // Animate on scroll
+      // Animate on scroll using CSS classes for better performance
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+            entry.target.classList.add('animate-visible');
           }
         });
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.glass-card, .step, .pro-tip-card, .mistake-card, .comparison-card').forEach(el => {
+        el.classList.add('animate-on-scroll');
         observer.observe(el);
       });
     </script>
