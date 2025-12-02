@@ -2,10 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-const DATA_FILE = path.join(__dirname, '..', 'data', 'orders.json');
+const DATA_DIR = path.join(__dirname, '..', 'data');
+const DATA_FILE = path.join(DATA_DIR, 'orders.json');
 
-// Initialize orders file if it doesn't exist
+// Initialize orders file and data directory if they don't exist
 function initializeData() {
+  // Ensure data directory exists
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  // Initialize orders file if it doesn't exist
   if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
   }
@@ -23,8 +29,10 @@ function readOrders() {
   }
 }
 
-// Write orders to file
+// Write orders to file (using writeFileSync for simplicity in this use case)
+// Note: For high-traffic scenarios, consider using a database instead
 function writeOrders(orders) {
+  initializeData();
   fs.writeFileSync(DATA_FILE, JSON.stringify(orders, null, 2));
 }
 

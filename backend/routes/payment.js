@@ -6,6 +6,9 @@ const { Order, ORDER_STATUS, PAYMENT_STATUS } = require('../models/Order');
 
 const NOWPAYMENTS_API_URL = 'https://api.nowpayments.io/v1';
 
+// Exchange rate: Tomans to USD (configurable via environment variable)
+const TOMAN_TO_USD_RATE = parseInt(process.env.TOMAN_TO_USD_RATE) || 60000;
+
 /**
  * POST /api/payment/create
  * Create a new payment invoice with NOWPayments
@@ -29,14 +32,17 @@ router.post('/create', async (req, res) => {
     }
 
     // Create invoice with NOWPayments
+    const backendUrl = process.env.BACKEND_URL || `http://localhost:${process.env.PORT || 3001}`;
+    const frontendUrl = process.env.FRONTEND_URL || 'https://chatgptgo.tawana.online';
+    
     const invoiceData = {
-      price_amount: order.amount / 60000, // Convert Tomans to USD (approximate rate)
+      price_amount: order.amount / TOMAN_TO_USD_RATE,
       price_currency: 'usd',
       order_id: order.id,
       order_description: `ChatGPT Go - ${order.orderType === 'personal' ? 'Personal Email' : 'Pre-made Account'} for ${order.email}`,
-      ipn_callback_url: `${process.env.FRONTEND_URL || 'https://chatgptgo.tawana.online'}/api/payment/webhook`,
-      success_url: `${process.env.FRONTEND_URL || 'https://chatgptgo.tawana.online'}?payment=success&order=${order.id}`,
-      cancel_url: `${process.env.FRONTEND_URL || 'https://chatgptgo.tawana.online'}?payment=cancelled&order=${order.id}`
+      ipn_callback_url: `${backendUrl}/api/payment/webhook`,
+      success_url: `${frontendUrl}?payment=success&order=${order.id}`,
+      cancel_url: `${frontendUrl}?payment=cancelled&order=${order.id}`
     };
 
     const response = await axios.post(`${NOWPAYMENTS_API_URL}/invoice`, invoiceData, {

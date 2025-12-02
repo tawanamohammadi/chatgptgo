@@ -13,7 +13,20 @@ const PORT = process.env.PORT || 3001;
 
 // Security headers
 app.use(helmet({
-  contentSecurityPolicy: false,
+  // Configure CSP for admin panel - allowing inline scripts for the simple admin UI
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"]
+    }
+  },
   crossOriginEmbedderPolicy: false
 }));
 
