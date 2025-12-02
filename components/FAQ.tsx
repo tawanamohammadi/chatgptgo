@@ -15,7 +15,7 @@ export const FAQ: React.FC = () => {
   return (
     <section id="faq" className="py-16 relative">
       <div className="container mx-auto px-6 max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-black text-center mb-8 text-foreground tracking-tight">{content.faq.title}</h2>
+        <h2 className="text-3xl md:text-4xl font-black text-center mb-8 text-[#fafafa] tracking-tight">{content.faq.title}</h2>
 
         <div className="space-y-3">
           {FAQS_CONFIG.map((faq, idx) => {
@@ -24,20 +24,20 @@ export const FAQ: React.FC = () => {
             return (
                 <div 
                 key={idx} 
-                className={`transition-all duration-300 rounded-xl overflow-hidden border ${
+                className={`transition-all duration-200 rounded-xl overflow-hidden border ${
                     isActive 
-                    ? 'bg-white/90 dark:bg-white/10 border-brand-accent/30 shadow-md shadow-brand-accent/5' 
-                    : 'bg-white/60 dark:bg-white/5 border-white/60 dark:border-white/5 hover:bg-white/80 dark:hover:bg-white/10 shadow-sm'
+                    ? 'bg-[#141414] border-[#22c55e]/50 shadow-md shadow-[#22c55e]/10' 
+                    : 'bg-[#141414] border-[#27272a] hover:bg-[#27272a] hover:border-[#22c55e]/30'
                 } backdrop-blur-md`}
                 >
                 <button
                     onClick={() => toggleIndex(idx)}
                     className="w-full flex items-center justify-between p-5 text-start focus:outline-none"
                 >
-                    <span className={`font-bold text-base ${isActive ? 'text-brand-accent' : 'text-foreground'}`}>
+                    <span className={`font-bold text-base ${isActive ? 'text-[#22c55e]' : 'text-[#fafafa]'}`}>
                     {item.q}
                     </span>
-                    <span className={`p-1.5 rounded-full transition-colors ${isActive ? 'bg-brand-accent text-white' : 'text-brand-mutedLight bg-black/5 dark:bg-white/5'}`}>
+                    <span className={`p-1.5 rounded-full transition-colors duration-200 ${isActive ? 'bg-[#22c55e] text-black' : 'text-[#71717a] bg-[#27272a]'}`}>
                     {isActive ? <Minus size={14} /> : <Plus size={14} />}
                     </span>
                 </button>
@@ -49,7 +49,7 @@ export const FAQ: React.FC = () => {
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                     >
-                        <div className="px-5 pb-5 pt-0 text-brand-muted dark:text-brand-mutedLight text-sm leading-relaxed text-start font-medium">
+                        <div className="px-5 pb-5 pt-0 text-[#a1a1aa] text-sm leading-relaxed text-start font-medium">
                         {item.a}
                         </div>
                     </motion.div>

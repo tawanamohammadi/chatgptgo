@@ -27,6 +27,13 @@ export interface FAQItem {
   answerKey: string;
 }
 
+export interface Testimonial {
+  name: string;
+  role: string;
+  text: string;
+  rating: number;
+}
+
 export interface Content {
   nav: Record<string, string>;
   hero: {
@@ -41,11 +48,21 @@ export interface Content {
       period: string;
       special: string;
       price: string;
+      originalPrice: string;
+      discountPercent: string;
       unit: string;
       note: string;
       features: string[];
       button: string;
-    }
+    };
+    urgency: {
+      countdownTitle: string;
+      spotsLeft: string;
+      spotsNumber: string;
+    };
+    testimonials: Testimonial[];
+    testimonialsTitle: string;
+    testimonialsSubtitle: string;
   };
   seller: {
     title: string;

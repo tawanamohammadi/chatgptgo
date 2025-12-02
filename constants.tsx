@@ -17,7 +17,7 @@ import {
   Smartphone,
   Percent
 } from 'lucide-react';
-import { FeatureItem, NavItem, StepItem, FAQItem, Content } from './types';
+import { FeatureItem, NavItem, StepItem, FAQItem, Content, Testimonial } from './types';
 
 export const TELEGRAM_ID = "Rahbarusd";
 export const TELEGRAM_LINK = `https://t.me/${TELEGRAM_ID}`;
@@ -90,6 +90,8 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
         period: 'لایسنس قانونی ۱ ساله',
         special: 'پیشنهاد ویژه',
         price: '۲٫۵۰۰٫۰۰۰',
+        originalPrice: '۳٫۵۰۰٫۰۰۰',
+        discountPercent: '۳۰٪',
         unit: 'تومان',
         note: 'آخرین بروزرسانی قیمت: همین الان',
         features: [
@@ -100,7 +102,19 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
           "گارانتی بازگشت وجه کامل"
         ],
         button: 'خرید و فعال‌سازی فوری'
-      }
+      },
+      urgency: {
+        countdownTitle: 'تخفیف ویژه تا',
+        spotsLeft: 'فقط',
+        spotsNumber: '۵ جا باقی مانده!'
+      },
+      testimonials: [
+        { name: 'علی رضایی', role: 'توسعه‌دهنده', text: 'سرویس عالی و پشتیبانی فوق‌العاده. اکانتم در کمتر از ۱۰ دقیقه فعال شد!', rating: 5 },
+        { name: 'سارا احمدی', role: 'طراح گرافیک', text: 'قیمت مناسب و کیفیت بالا. به همه دوستانم پیشنهاد می‌کنم.', rating: 5 },
+        { name: 'محمد کریمی', role: 'دانشجو', text: 'VPN هدیه هم واقعاً مفید بود. از خریدم راضی هستم.', rating: 5 }
+      ],
+      testimonialsTitle: 'نظرات مشتریان',
+      testimonialsSubtitle: '+۱۰۰۰ سفارش موفق با ۹۸٪ رضایت'
     },
     seller: {
       title: 'پروفایل تایید شده',
@@ -163,7 +177,7 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
     },
     footer: {
       rights: 'تمامی حقوق محفوظ است.',
-      slogan: 'PanbeNet — پیشرو در خدمات هوش مصنوعی.',
+      slogan: 'ChatGPT Go — پیشرو در خدمات هوش مصنوعی.',
       links: {
         terms: 'قوانین',
         privacy: 'حریم خصوصی',
@@ -190,6 +204,8 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
         period: '1 Year Legal License',
         special: 'Special Offer',
         price: '2,500,000',
+        originalPrice: '3,500,000',
+        discountPercent: '30%',
         unit: 'Tomans',
         note: 'Price updated just now',
         features: [
@@ -200,7 +216,19 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
           "Full Money-back guarantee"
         ],
         button: 'Buy & Activate Now'
-      }
+      },
+      urgency: {
+        countdownTitle: 'Special Offer Ends In',
+        spotsLeft: 'Only',
+        spotsNumber: '5 spots left!'
+      },
+      testimonials: [
+        { name: 'Ali Rezaei', role: 'Developer', text: 'Amazing service and outstanding support. My account was activated in less than 10 minutes!', rating: 5 },
+        { name: 'Sara Ahmadi', role: 'Graphic Designer', text: 'Great price and high quality. I recommend it to all my friends.', rating: 5 },
+        { name: 'Mohammad Karimi', role: 'Student', text: 'The VPN gift was really useful too. Very satisfied with my purchase.', rating: 5 }
+      ],
+      testimonialsTitle: 'Customer Reviews',
+      testimonialsSubtitle: '1000+ successful orders with 98% satisfaction'
     },
     seller: {
       title: 'Verified Profile',
@@ -263,7 +291,7 @@ export const TRANSLATIONS: Record<'fa' | 'en', Content> = {
     },
     footer: {
       rights: 'All rights reserved.',
-      slogan: 'PanbeNet — Leading in AI Services.',
+      slogan: 'ChatGPT Go — Leading in AI Services.',
       links: {
         terms: 'Terms',
         privacy: 'Privacy',

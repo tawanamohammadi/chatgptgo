@@ -1,3 +1,39 @@
 User-agent: *
 Allow: /
-Sitemap: https://panbenet.github.io/chatgpt-go/sitemap.xml
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /assets/
+
+# Crawl-delay for all bots
+Crawl-delay: 1
+
+Sitemap: https://chatgptgo.tawana.online/sitemap.xml
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Google Images
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1

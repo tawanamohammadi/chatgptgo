@@ -18,22 +18,22 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const { dir } = useLanguage();
   
-  const baseStyles = "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold transition-all duration-300 transform active:scale-95 text-sm md:text-base relative overflow-hidden group tracking-wide";
+  const baseStyles = "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold transition-all duration-200 transform active:scale-95 text-sm md:text-base relative overflow-hidden group tracking-wide";
   
   const variants = {
-    // Electric Purple to Pink
-    primary: "bg-gradient-to-r from-[#7c3aed] to-[#d946ef] text-white shadow-[0_0_20px_-5px_rgba(124,58,237,0.5)] hover:shadow-[0_0_30px_-5px_rgba(217,70,239,0.6)] hover:-translate-y-0.5 border border-transparent",
+    // Modern Green Primary
+    primary: "bg-[#22c55e] hover:bg-[#16a34a] text-black shadow-[0_0_20px_-5px_rgba(34,197,94,0.5)] hover:shadow-[0_0_30px_-5px_rgba(22,163,74,0.6)] hover:-translate-y-0.5 border border-transparent",
     
     // High contrast dark/light
-    secondary: "bg-black dark:bg-white text-white dark:text-black border border-transparent hover:bg-gray-900 dark:hover:bg-gray-100",
+    secondary: "bg-[#0a0a0a] dark:bg-[#fafafa] text-[#fafafa] dark:text-[#0a0a0a] border border-transparent hover:bg-[#141414] dark:hover:bg-[#f5f5f5]",
     
-    // Neon Outline (Spotify style green/cyan)
-    neon: "bg-transparent border-2 border-[#1db954] text-[#1db954] hover:bg-[#1db954] hover:text-black shadow-[0_0_15px_-5px_#1db954]",
+    // Neon Outline (Modern Green)
+    neon: "bg-transparent border-2 border-[#22c55e] text-[#22c55e] hover:bg-[#22c55e] hover:text-black shadow-[0_0_15px_-5px_#22c55e]",
 
     // Subtle Glass
-    glass: "backdrop-blur-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 text-foreground shadow-lg hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/30",
+    glass: "backdrop-blur-xl bg-[#141414] border border-[#27272a] text-[#fafafa] shadow-lg hover:bg-[#27272a] hover:border-[#22c55e]/30",
     
-    ghost: "bg-transparent text-brand-muted hover:text-foreground"
+    ghost: "bg-transparent text-[#a1a1aa] hover:text-[#fafafa]"
   };
 
   const content = (
@@ -47,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
         {showIcon && (
             <ArrowUpRight 
                 size={18} 
-                className={`transition-transform duration-300 ${dir === 'rtl' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} 
+                className={`transition-transform duration-200 ${dir === 'rtl' ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`} 
             />
         )}
       </span>
