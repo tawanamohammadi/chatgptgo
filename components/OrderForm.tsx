@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShoppingCart, Mail, User, Phone, Link2, Send, BookOpen, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ShoppingCart, Mail, User, Phone, Link2, Send, BookOpen, CheckCircle2, AlertCircle, Loader2, ExternalLink, XCircle, RefreshCw } from 'lucide-react';
 import { Button } from './ui/Button';
-import { TELEGRAM_LINK } from '../constants';
+import { TELEGRAM_LINK, API_URL } from '../constants';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type OrderType = 'personal' | 'premade';
+type SubmitStatus = 'idle' | 'loading' | 'success' | 'error' | 'payment';
 
 interface FormData {
   firstName: string;
@@ -13,6 +14,24 @@ interface FormData {
   email: string;
   invoiceLink: string;
   phone: string;
+}
+
+interface OrderResponse {
+  success: boolean;
+  order?: {
+    id: string;
+    status: string;
+  };
+  error?: string;
+}
+
+interface PaymentResponse {
+  success: boolean;
+  paymentUrl?: string;
+  paymentId?: string;
+  amount?: number;
+  currency?: string;
+  error?: string;
 }
 
 export const OrderForm: React.FC = () => {
@@ -25,7 +44,11 @@ export const OrderForm: React.FC = () => {
     invoiceLink: '',
     phone: ''
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+  const [orderId, setOrderId] = useState<string | null>(null);
+  const [paymentUrl, setPaymentUrl] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isCheckingPayment, setIsCheckingPayment] = useState(false);
 
   const content = {
     fa: {
@@ -47,7 +70,17 @@ export const OrderForm: React.FC = () => {
       successTitle: 'سفارش شما ثبت شد!',
       successMessage: 'لطفاً برای ادامه فرآیند، به تلگرام مراجعه کنید.',
       goToTelegram: 'رفتن به تلگرام',
-      required: 'الزامی'
+      required: 'الزامی',
+      submitting: 'در حال ثبت...',
+      errorTitle: 'خطا در ثبت سفارش',
+      tryAgain: 'تلاش مجدد',
+      paymentTitle: 'پرداخت کریپتو',
+      paymentMessage: 'برای تکمیل سفارش، روی دکمه زیر کلیک کنید و پرداخت کریپتو را انجام دهید.',
+      payButton: 'پرداخت با کریپتو',
+      checkPayment: 'بررسی وضعیت پرداخت',
+      paymentPending: 'در انتظار پرداخت...',
+      paymentSuccess: 'پرداخت موفق!',
+      paymentSuccessMessage: 'پرداخت شما با موفقیت انجام شد. سفارش شما در حال پردازش است.'
     },
     en: {
       title: 'Place Order',
@@ -68,7 +101,17 @@ export const OrderForm: React.FC = () => {
       successTitle: 'Order Submitted!',
       successMessage: 'Please proceed to Telegram to continue the process.',
       goToTelegram: 'Go to Telegram',
-      required: 'Required'
+      required: 'Required',
+      submitting: 'Submitting...',
+      errorTitle: 'Error submitting order',
+      tryAgain: 'Try Again',
+      paymentTitle: 'Crypto Payment',
+      paymentMessage: 'Click the button below to complete your crypto payment.',
+      payButton: 'Pay with Crypto',
+      checkPayment: 'Check Payment Status',
+      paymentPending: 'Awaiting payment...',
+      paymentSuccess: 'Payment Successful!',
+      paymentSuccessMessage: 'Your payment was successful. Your order is being processed.'
     }
   };
 
@@ -79,25 +122,215 @@ export const OrderForm: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const buildOrderMessage = (type: OrderType, data: FormData): string => {
-    const baseInfo = `سفارش جدید:\nنام: ${data.firstName} ${data.lastName}\nایمیل: ${data.email}`;
-    
-    if (type === 'personal') {
-      return `${baseInfo}\nنوع: فعال‌سازی ایمیل شخصی\nلینک فاکتور: ${data.invoiceLink}`;
-    }
-    return `${baseInfo}\nنوع: اکانت پیش‌ساخته\nتلفن: ${data.phone}`;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  // Submit order to backend
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Build the order message (can be used for analytics or clipboard copy)
-    const message = buildOrderMessage(orderType, formData);
-    
-    // Show success state - user will be prompted to go to Telegram
-    setIsSubmitted(true);
+    setSubmitStatus('loading');
+    setErrorMessage('');
+
+    try {
+      // Create order
+      const orderResponse = await fetch(`${API_URL}/api/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          orderType,
+          invoiceLink: orderType === 'personal' ? formData.invoiceLink : undefined,
+          phone: orderType === 'premade' ? formData.phone : undefined,
+        }),
+      });
+
+      const orderData: OrderResponse = await orderResponse.json();
+
+      if (!orderResponse.ok || !orderData.success || !orderData.order) {
+        throw new Error(orderData.error || 'Failed to create order');
+      }
+
+      setOrderId(orderData.order.id);
+
+      // For premade accounts, just show success and redirect to Telegram
+      if (orderType === 'premade') {
+        setSubmitStatus('success');
+        return;
+      }
+
+      // For personal email orders, create payment
+      try {
+        const paymentResponse = await fetch(`${API_URL}/api/payment/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderId: orderData.order.id,
+          }),
+        });
+
+        const paymentData: PaymentResponse = await paymentResponse.json();
+
+        if (!paymentResponse.ok || !paymentData.success) {
+          // Payment creation failed, but order was created
+          // Fall back to Telegram flow
+          setSubmitStatus('success');
+          return;
+        }
+
+        if (paymentData.paymentUrl) {
+          setPaymentUrl(paymentData.paymentUrl);
+          setSubmitStatus('payment');
+        } else {
+          setSubmitStatus('success');
+        }
+      } catch {
+        // Payment API not available, fall back to success state
+        setSubmitStatus('success');
+      }
+    } catch (error) {
+      console.error('Error submitting order:', error);
+      setErrorMessage(error instanceof Error ? error.message : 'An error occurred');
+      setSubmitStatus('error');
+    }
   };
 
-  if (isSubmitted) {
+  // Check payment status
+  const checkPaymentStatus = async () => {
+    if (!orderId) return;
+    
+    setIsCheckingPayment(true);
+    try {
+      const response = await fetch(`${API_URL}/api/payment/status/${orderId}`);
+      const data = await response.json();
+
+      if (data.success && (data.paymentStatus === 'finished' || data.orderStatus === 'paid')) {
+        setSubmitStatus('success');
+      }
+    } catch (error) {
+      console.error('Error checking payment status:', error);
+    } finally {
+      setIsCheckingPayment(false);
+    }
+  };
+
+  // Auto-check payment status when in payment state
+  useEffect(() => {
+    if (submitStatus === 'payment' && orderId) {
+      const interval = setInterval(checkPaymentStatus, 10000); // Check every 10 seconds
+      return () => clearInterval(interval);
+    }
+  }, [submitStatus, orderId]);
+
+  // Reset form
+  const resetForm = () => {
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      invoiceLink: '',
+      phone: ''
+    });
+    setSubmitStatus('idle');
+    setOrderId(null);
+    setPaymentUrl(null);
+    setErrorMessage('');
+  };
+
+  // Error state
+  if (submitStatus === 'error') {
+    return (
+      <section id="order" className="py-16 md:py-24 relative">
+        <div className="container mx-auto px-4 md:px-6 max-w-xl">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#27272a] rounded-3xl p-8 text-center shadow-2xl"
+          >
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center">
+              <XCircle size={40} className="text-red-500" />
+            </div>
+            <h3 className="text-2xl font-black text-white mb-2">{t.errorTitle}</h3>
+            <p className="text-[#a1a1aa] mb-6">{errorMessage}</p>
+            <button
+              onClick={resetForm}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#22c55e] text-black font-bold hover:bg-[#16a34a] transition-colors"
+            >
+              <RefreshCw size={18} />
+              {t.tryAgain}
+            </button>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  // Payment state - show payment link
+  if (submitStatus === 'payment' && paymentUrl) {
+    return (
+      <section id="order" className="py-16 md:py-24 relative">
+        <div className="container mx-auto px-4 md:px-6 max-w-xl">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-[#27272a] rounded-3xl p-8 text-center shadow-2xl"
+          >
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#22c55e]/20 flex items-center justify-center">
+              <ExternalLink size={40} className="text-[#22c55e]" />
+            </div>
+            <h3 className="text-2xl font-black text-white mb-2">{t.paymentTitle}</h3>
+            <p className="text-[#a1a1aa] mb-6">{t.paymentMessage}</p>
+            
+            <div className="space-y-4">
+              <a
+                href={paymentUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 rounded-xl bg-[#22c55e] text-black font-bold text-base hover:bg-[#16a34a] transition-all duration-200 shadow-lg shadow-[#22c55e]/30 flex items-center justify-center gap-2"
+              >
+                <ExternalLink size={20} />
+                {t.payButton}
+              </a>
+              
+              <button
+                onClick={checkPaymentStatus}
+                disabled={isCheckingPayment}
+                className="w-full py-3 rounded-xl border border-[#27272a] text-[#a1a1aa] font-bold hover:bg-[#1a1a1a] transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {isCheckingPayment ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    {t.paymentPending}
+                  </>
+                ) : (
+                  <>
+                    <RefreshCw size={18} />
+                    {t.checkPayment}
+                  </>
+                )}
+              </button>
+            </div>
+
+            <p className="text-xs text-[#71717a] mt-6">
+              {language === 'fa' ? 'پس از پرداخت، برای پیگیری سریع‌تر به تلگرام مراجعه کنید.' : 'After payment, contact us on Telegram for faster processing.'}
+            </p>
+            <a 
+              href={TELEGRAM_LINK}
+              className="inline-flex items-center gap-2 mt-4 text-[#22c55e] hover:underline text-sm"
+            >
+              <Send size={14} />
+              {t.goToTelegram}
+            </a>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  // Success state
+  if (submitStatus === 'success') {
     return (
       <section id="order" className="py-16 md:py-24 relative">
         <div className="container mx-auto px-4 md:px-6 max-w-xl">
@@ -305,10 +538,20 @@ export const OrderForm: React.FC = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-4 rounded-xl bg-[#22c55e] text-black font-bold text-base hover:bg-[#16a34a] transition-all duration-200 shadow-lg shadow-[#22c55e]/30 hover:shadow-[#22c55e]/50 hover:scale-[1.02] flex items-center justify-center gap-2"
+              disabled={submitStatus === 'loading'}
+              className="w-full py-4 rounded-xl bg-[#22c55e] text-black font-bold text-base hover:bg-[#16a34a] transition-all duration-200 shadow-lg shadow-[#22c55e]/30 hover:shadow-[#22c55e]/50 hover:scale-[1.02] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              <CheckCircle2 size={20} />
-              {t.submit}
+              {submitStatus === 'loading' ? (
+                <>
+                  <Loader2 size={20} className="animate-spin" />
+                  {t.submitting}
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 size={20} />
+                  {t.submit}
+                </>
+              )}
             </button>
           </form>
         </motion.div>
