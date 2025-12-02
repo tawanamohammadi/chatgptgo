@@ -26,6 +26,12 @@ export const CHANNEL_LINK = `https://t.me/${CHANNEL_ID}`;
 export const TRUST_CHANNEL_LINK = "https://t.me/+Dxp0eP9LH4o5Mjg8";
 export const ABOUT_ME_LINK = "https://tawanamohammadi.bio";
 
+// --- API CONFIGURATION ---
+// Backend API URL for order management and payment processing
+export const API_URL = import.meta.env.PROD 
+  ? 'https://api.chatgptgo.tawana.online' 
+  : 'http://localhost:3001';
+
 // --- PROFILE IMAGE CONFIGURATION ---
 // Using the High-Res image from Gravatar as requested
 export const CUSTOM_PROFILE_IMAGE = "https://2.gravatar.com/userimage/273761299/47f83f0d63887baf0d6a809341cc8c13?size=1024"; 
