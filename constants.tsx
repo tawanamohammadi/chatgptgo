@@ -29,7 +29,7 @@ export const ABOUT_ME_LINK = "https://tawanamohammadi.bio";
 // --- API CONFIGURATION ---
 // Backend API URL for order management and payment processing
 export const API_URL = import.meta.env.PROD 
-  ? 'https://api.chatgptgo.tawana.online' 
+  ? 'https://api.tawana.online' 
   : 'http://localhost:3001';
 
 // --- PROFILE IMAGE CONFIGURATION ---
