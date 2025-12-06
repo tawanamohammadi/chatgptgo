@@ -98,7 +98,7 @@
 | **[Claude 4.5 Sonnet](https://anthropic.com/claude)** | ایجنت اصلی توسعه (Multi-Agent) | [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) - Google DeepMind |
 | **[GitHub Copilot](https://github.com/copilot)** | ایجنت کدنویسی | GitHub |
 | **Claude Opus 4.5** | دستیار هوش مصنوعی پیشرفته | GitHub Copilot |
-| **Gemini 3  Pro** | شروع و پایه‌گذاری پروژه | Google AI |
+| **Gemini 3 Pro** | شروع و پایه‌گذاری پروژه | Google AI |
 
 **👨‍💻 هدایت‌کننده اصلی**: [توانا محمدی](https://github.com/tawanamohammadi)
 
@@ -151,16 +151,20 @@
 
 This project was developed using advanced AI agents:
 
-| Agent / Model | Role | Platform |
-|---------------|------|----------|
-| **[Claude 4.5 Sonnet](https://anthropic.com/claude)** | Primary Development Agent (Multi-Agent) | [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) - Google DeepMind |
-| **[GitHub Copilot](https://github.com/copilot)** | Code Agent | GitHub |
-| **Claude Opus 4.5** | Advanced AI Assistant | GitHub Copilot |
-| **Gemini 2.5 Pro** | Project Initialization | Google AI |
+#### Development Stages
 
-**👨‍💻 Lead Developer**: [Tawana Mohammadi](https://github.com/tawanamohammadi)
+| Stage | AI Agent / Model | Platform | Contribution |
+|-------|------------------|----------|--------------|
+| **1. Foundation** | Gemini 2.5 Pro (High) | [Google AI Studio](https://aistudio.google.com/apps) | Project Init |
+| **2. Initial Development** | Claude Opus 4.5 | GitHub Copilot | ~30% |
+| **3. Advanced Development** | Claude 4.5 Sonnet (Thinking) | [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) | ~50% |
+| **4. Optimization** | Claude 4.5 Sonnet | Antigravity (Multi-Agent) | ~20% |
 
-> **💡 Note**: This project showcases autonomous AI-assisted development. All development sessions, decisions, and code changes are documented in [`.agent/DEVELOPMENT_LOG.md`](./.agent/DEVELOPMENT_LOG.md).
+**👨‍💻 Architecture & Lead**: [Tawana Mohammadi](https://github.com/tawanamohammadi)
+
+> **⚙️ Technical Note**: Project initiated in Google AI Studio and migrated to GitHub. Core development performed using Multi-Agent architecture in Antigravity. All development sessions documented in [`.agent/DEVELOPMENT_LOG.md`](./.agent/DEVELOPMENT_LOG.md).
+
+> **💳 Payment Gateway Status**: Shaparak gateway temporarily disabled due to technical issues. Currently integrating crypto (USDT) and new Rial payment gateways.
 
 <br/>
 

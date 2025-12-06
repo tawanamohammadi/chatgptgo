@@ -3,23 +3,40 @@
 ## Project Information
 - **Project**: ChatGPT Go - Premium ChatGPT Subscription Platform
 - **Developer**: Tawana Mohammadi ([@tawanamohammadi](https://github.com/tawanamohammadi))
-- **AI Agent**: Claude 4.5 Sonnet (Antigravity by Google DeepMind)
+- **AI Agents Used**:
+  - **Gemini 2.5 Pro (High)** - Project initialization in [Google AI Studio](https://aistudio.google.com/apps)
+  - **Claude Opus 4.5** - Initial development (~30%) via GitHub Copilot
+  - **Claude 4.5 Sonnet (Thinking)** - Advanced development (~50%) via Antigravity
+  - **Claude 4.5 Sonnet** - Optimization and finalization (~20%) via Antigravity Multi-Agent
 - **Repository**: [github.com/Tawanashahsavari/chatgptgo](https://github.com/Tawanashahsavari/chatgptgo)
 - **Live Demo**: [tawanashahsavari.github.io/chatgptgo](https://tawanashahsavari.github.io/chatgptgo/)
 
+## Payment Gateway Status
+
+> **⚠️ Important**: The Shaparak payment gateway has been temporarily disabled due to technical issues. We are currently in the process of integrating:
+> - Cryptocurrency payment gateway (USDT/Crypto)
+> - New Rial payment gateway
+> 
+> Payment functionality in the current codebase is prepared for these new integrations.
+
 ## AI-Assisted Development
 
-This project was developed with the assistance of advanced AI agents:
-- **Claude 4.5 Sonnet** (Anthropic) - Primary development agent via Antigravity
-- **Gemini 2.5 Pro** (Google) - Initial project setup
-- **GitHub Copilot** - Code completion and suggestions
+This project showcases autonomous development using multiple AI agents in a coordinated workflow:
 
-### Agent Capabilities Used
+### Development Pipeline
+1. **Foundation** (Google AI Studio): Project structure and initial setup with Gemini 2.5 Pro
+2. **Core Development** (GitHub Copilot): Component architecture with Claude Opus 4.5
+3. **Advanced Features** (Antigravity): Complex logic and optimization with Claude 4.5 Sonnet (Thinking)
+4. **Final Polish** (Antigravity Multi-Agent): Performance tuning and UX refinement with Claude 4.5 Sonnet
+
+### Agent Capabilities Demonstrated
 - Autonomous code generation and refactoring
-- Performance optimization
-- UI/UX improvements
+- Real-time validation implementation
+- Performance optimization strategies
+- Accessibility compliance (ARIA, WCAG)
+- SEO optimization with structured data
 - Responsive design implementation
-- Bug detection and fixing
+- Multi-agent coordination for complex tasks
 
 ---
 
