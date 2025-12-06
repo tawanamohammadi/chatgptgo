@@ -1,5 +1,11 @@
 <div align="center">
 
+### 🧑‍💻 Human & AI Collaboration | همکاری انسان و هوش مصنوعی
+
+**هدایت کننده چند عاملی و مهندس داده**: توانا محمدی (Tawana Mohammadi)
+
+> در این پروژه، توانا محمدی به عنوان هدایت کننده چند عاملی و مهندس داده، نقش کلیدی در معماری، نظارت بر تعاملات ایجنت‌ها و تضمین کیفیت داده‌ها و خروجی نهایی ایفا کرده است. ایجنت‌های هوش مصنوعی، از جمله **Claude 4.5 Sonnet** و **Gemini 2.5 Pro** (که از طریق پلتفرم Antigravity گوگل دیپ‌مایند به کار گرفته شده‌اند)، تحت هدایت ایشان به توسعه و پیاده‌سازی بخش‌های مختلف پروژه پرداخته‌اند.
+
 # 🚀 ChatGPT Go
 
 ### پلتفرم فروش اشتراک ChatGPT با ضمانت و پشتیبانی ۲۴/۷
@@ -13,15 +19,20 @@
 
 <br/>
 
-**[🇮🇷 فارسی](#-نسخه-فارسی)** • **[🇬🇧 English](#-english-version)**
+**[🇮🇷 فارسی](#-نسخه-فارسی)** • **[🇬🇧 English](#-english-version)** • **[📋 Development Logs](./.agent/DEVELOPMENT_LOG.md)** • **[✅ Tasks](./.agent/TASKS.md)**
 
 <br/>
 
-### 🤖 Built with AI | ساخته شده با هوش مصنوعی
+### 🤖 Built with AI Agents | ساخته شده با ایجنت‌های هوش مصنوعی
 
-[![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-Agent-000?style=for-the-badge&logo=github)](https://github.com/copilot)
-[![Claude](https://img.shields.io/badge/Claude-Opus_4-cc785c?style=for-the-badge&logo=anthropic)](https://anthropic.com)
+[![Antigravity](https://img.shields.io/badge/Antigravity-Google_DeepMind-4285F4?style=for-the-badge&logo=google)](https://deepmind.google/)
+[![Claude](https://img.shields.io/badge/Claude-4.5_Sonnet-cc785c?style=for-the-badge&logo=anthropic)](https://anthropic.com)
 [![Gemini](https://img.shields.io/badge/Gemini-2.5_Pro-4285F4?style=for-the-badge&logo=google)](https://ai.google.dev)
+[![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-Agent-000?style=for-the-badge&logo=github)](https://github.com/copilot)
+
+**🎯 Primary AI Agent**: [Claude 4.5 Sonnet](https://anthropic.com/claude) via [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) (Google DeepMind)
+
+> This project showcases autonomous AI-assisted development with full transparency. All development sessions, decisions, and code changes are documented in [`.agent/DEVELOPMENT_LOG.md`](./.agent/DEVELOPMENT_LOG.md).
 
 </div>
 
@@ -72,15 +83,26 @@
 
 <br/>
 
-### 🤖 ساخته شده با هوش مصنوعی
+### 🤖 ساخته شده با ایجنت‌های هوش مصنوعی
 
-این پروژه با استفاده از ابزارهای پیشرفته هوش مصنوعی توسعه یافته است:
+<div align="center">
 
-| ابزار | نقش |
-|-------|-----|
-| **[GitHub Copilot](https://github.com/copilot)** | ایجنت هوشمند کدنویسی |
-| **Claude Opus 4** | دستیار هوش مصنوعی پیشرفته |
-| **Gemini 2.5 Pro** | شروع و پایه‌گذاری پروژه |
+![Antigravity Google DeepMind](https://github.com/tawanamohammadi/chatgptgo/blob/main/antigravity_google.png?raw=true)
+
+</div>
+
+این پروژه با استفاده از ایجنت‌های پیشرفته هوش مصنوعی توسعه یافته است:
+
+| ایجنت / مدل | نقش | پلتفرم |
+|-------------|-----|--------|
+| **[Claude 4.5 Sonnet](https://anthropic.com/claude)** | ایجنت اصلی توسعه (Multi-Agent) | [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) - Google DeepMind |
+| **[GitHub Copilot](https://github.com/copilot)** | ایجنت کدنویسی | GitHub |
+| **Claude Opus 4.5** | دستیار هوش مصنوعی پیشرفته | GitHub Copilot |
+| **Gemini 3  Pro** | شروع و پایه‌گذاری پروژه | Google AI |
+
+**👨‍💻 هدایت‌کننده اصلی**: [توانا محمدی](https://github.com/tawanamohammadi)
+
+> **💡 توضیح**: این پروژه نمونه‌ای از توسعه خودکار با ایجنت‌های هوش مصنوعی است. تمام جلسات توسعه، تصمیمات و تغییرات کد در [`.agent/DEVELOPMENT_LOG.md`](./.agent/DEVELOPMENT_LOG.md) مستند شده است.
 
 <br/>
 
@@ -125,7 +147,22 @@
 
 <br/>
 
-### 🤖 Built with AI
+### 🤖 Built with AI Agents
+
+This project was developed using advanced AI agents:
+
+| Agent / Model | Role | Platform |
+|---------------|------|----------|
+| **[Claude 4.5 Sonnet](https://anthropic.com/claude)** | Primary Development Agent (Multi-Agent) | [Antigravity](https://deepmind.google/technologies/gemini/antigravity/) - Google DeepMind |
+| **[GitHub Copilot](https://github.com/copilot)** | Code Agent | GitHub |
+| **Claude Opus 4.5** | Advanced AI Assistant | GitHub Copilot |
+| **Gemini 2.5 Pro** | Project Initialization | Google AI |
+
+**👨‍💻 Lead Developer**: [Tawana Mohammadi](https://github.com/tawanamohammadi)
+
+> **💡 Note**: This project showcases autonomous AI-assisted development. All development sessions, decisions, and code changes are documented in [`.agent/DEVELOPMENT_LOG.md`](./.agent/DEVELOPMENT_LOG.md).
+
+<br/>
 
 This project was developed using cutting-edge AI tools:
 
